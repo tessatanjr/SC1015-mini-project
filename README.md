@@ -70,12 +70,15 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
  
  
 # 3. [Exploratory Data Analysis and Visualisation: Training the models and Predicting Test Data](../SC1015-mini-project/)
+  
   In this section we will do general EDA to gather relevant insights. Due to the different nature of the data,  (14 Numerical Columns for the Packets variables and 6 Categorical Data for the Flag variables), we will be breaking it into two parts where we will explore the best method to explore and visualize the different data types for relevant insights.
 
   **3.1.1 Exploratory Data Analysis (Numerical)**
+  
   In this case, we have chosen boxplots and stripplots to best showcase our results for general distribution, but a simple .describe() function is also utilised to showcase the difference in (Numerical) variables for the types of attack.
       
   **3.1.2 Insights of Exploratory Data Analysis (Numerical)**
+  
   To preface we must acknowledge that using graphical representation for such a large volume of (Numerical) data against (Categorical) has its downsides:
      * As shown in the boxplot and stripplot, there are many outliers in the values, however the value that standout the most visually would be the ['Total Length of Fwd Packet'] for both the Scareware and SMS Malware: Where the outliers have a large spread which is also reflected in their std value.
      * The mean value of ['Total Length of Fwd Packets'] for Android_Malware attack: 5.39 which is much lower than the respective factor for the negative/Benign attacks: 623.59 which will also be further explored in the machine learning model stage.
@@ -84,9 +87,11 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
   These insights will be further developed into a potential hypothesis/insights in the prediction accuracy when doing machine learning model stage.
 
   **3.2.1 Exploratory Data Analysis (Categorical)**
+  
   For each of the 6 flags, we created countplots for visualisation. 
     
   **3.2.2 Insights of Exploratory Data Analysis (Categorical)**
+  
   Due to the binary nature of the data variables where the values are '1' or '0' for all the flags as well as the categorical ['Label'], we are able to utilise the countplot function in seaborn to best visualise the categorical data. Similar to numerical data, we must acknowledge that using graphical representation for such a large volume of data has its downsides in terms of visual representation. Our key insight is that the RST flag count for all the different types of Malware attacks including Benign can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
     
     
@@ -132,14 +137,17 @@ This proves the key insight found in Part 2.2: Insights of Exploratory Data Anal
 
 
 # 5. [Core Analysis - Machine Learning](../SC1015-mini-project/)
+  
   Machine Learning techniques are being used as a quick and efficient means of malware detection. 
 
 **1. Supervised:**
+
 After dimension reduction, how can we best evaluate the data? Classification algorithm is used to predict the class labels of new instances based on the reduced data. To do this, split the reduced data into training and test sets, fit a classification model to the training data, and then use the model to predict the class labels of the test data.
 Random Forests is an ensemble learning method that constructs multiple decision trees and combines their predictions to classify new data. It can be used to classify new malware samples based on the attributes that are most informative for distinguishing between different clusters.
 How model 1 solves objective (numerical):
 
 **2. Unsupervised:**
+
 clustering-based techniques 
 A hierarchical logistic regression model is proposed for studying data with group structure and a binary response variable.
 How model 2 solves objective (categorical):
