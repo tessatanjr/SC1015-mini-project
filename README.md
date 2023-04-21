@@ -37,18 +37,20 @@ When it comes to preventing malware attacks, there are multiple different vantag
 The objective of our project is two-fold. Firstly, we aim to achieve good accuracy in detecting malware from samples of benign and malware applications using 2 approaches. We began by selecting features to analyse based on their definitions, and proceeded to use dimension reduction to further improve this analysis. Dimension reduction aids with simplifying and optimising data analysis and machine learning algorithms. Secondly, we compared features/characteristics of different data types to provide recommendations on the best strategy for malware detection. This allows us to resolve the model selection problem: weighing between logistic regression (categorical) vs random forest (numerical).
 
 ### Our question: 
-### Our dataset: Android Malware Detection on Kaggle (updated-version Feb 2023)
-The database for this project was extracted from Kaggle. It has 355630 Data points and it contains features of network flow characteristics and statistics. *click* The data is split into four categories, software labelled ‘Android adware’, ‘Android Scareware’, ‘Android SMS Malware’ and ‘Benign’. These will be the response variables we will be examining, where the remaining variables in our dataset will act as listed predictors that we will be using in this study.*click*
+### Our dataset: 
+*Android Malware Detection on Kaggle (updated-version Feb 2023)*
+
+The database for this project was extracted from Kaggle. It has 355630 Data points and it contains features of network flow characteristics and statistics. The data is split into four categories, software labelled ‘Android adware’, ‘Android Scareware’, ‘Android SMS Malware’ and ‘Benign’. These will be the response variables we will be examining, where the remaining variables in our dataset will act as listed predictors that we will be using in this study.
 
 # 2. [Data Preparation and Cleaning](../SC1015-mini-project/)
   In this section of the project, we prepared and cleaned the kaggle dataset. We split the dataset into 4 other types and 
-  (1)EDA and (2)Dimension reduction in the later sections.
+  (1) EDA and (2) Dimension reduction in the later sections.
 
   We performed the following:
 
   ## 1. Preliminary Feature Selection: 21 relevant variables out of 85 were selected, which can be categorised into 4 types:
-  (1) Total Length of Fwd Packets and Total Length of Bwd Packets: These features represent the total length of data transmitted in the forward and backward directions during a flow. Similar to the total packet counts, anomalously high volumes of data transmission can be indicative of malware activity.
-  (2) Fwd Packet Length Max, Fwd Packet Length Mean, Fwd Packet Length Std, Bwd Packet Length Max, Bwd Packet Length Mean, and Bwd Packet Length Std: 
+  ⋅⋅⋅(1) Total Length of Fwd Packets and Total Length of Bwd Packets: These features represent the total length of data transmitted in the forward and backward directions during a flow. Similar to the total packet counts, anomalously high volumes of data transmission can be indicative of malware activity.
+  ⋅⋅⋅(2) Fwd Packet Length Max, Fwd Packet Length Mean, Fwd Packet Length Std, Bwd Packet Length Max, Bwd Packet Length Mean, and Bwd Packet Length Std: 
   These features represent various statistics of packet length for both the forward and backward directions during a flow. Malware may use specific packet length patterns to hide its communication, which can be identified through these statistics. For example, high standard deviations in packet length can be an indicator of encrypted traffic, which may be used by malware to hide its communication.
   (3) Flow Bytes/s and Flow Packets/s: These features represent the rate of bytes and packets transmitted per second during a flow. High rates can indicate potential malware activity.
   (4) FIN Flag Count, SYN Flag Count, RST Flag Count, PSH Flag Count, ACK Flag Count, and URG Flag Count: These features represent the count of different TCP flags set during a flow. Some types of malware may use specific TCP flag combinations for their communication.
@@ -65,10 +67,10 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
 # 3. [Exploratory Data Analysis and Visualisation: Training the models and Predicting Test Data](../SC1015-mini-project/)
   In this section we will do general EDA to gather relevant insights. Due to the different nature of the data,  (14 Numerical Columns for the Packets variables and 6 Categorical Data for the Flag variables), we will be breaking it into two parts where we will explore the best method to explore and visualize the different data types for relevant insights.
 
-  ## 3.1.1: Exploratory Data Analysis (Numerical)
+  ## 3.1.1 Exploratory Data Analysis (Numerical)
   In this case, we have chosen boxplots and stripplots to best showcase our results for general distribution, but a simple .describe() function is also utilised to showcase the difference in (Numerical) variables for the types of attack.
       
-  ## 3.1.2: Insights of Exploratory Data Analysis (Numerical)
+  ## 3.1.2 Insights of Exploratory Data Analysis (Numerical)
   To preface we must acknowledge that using graphical representation for such a large volume of (Numerical) data against (Categorical) has its downsides:
      - As shown in the boxplot and stripplot, there are many outliers in the values, however the value that standout the most visually would be the ['Total Length of Fwd Packet'] for both the Scareware and SMS Malware: Where the outliers have a large spread which is also reflected in their std value.
      - The mean value of ['Total Length of Fwd Packets'] for Android_Malware attack: 5.39 which is much lower than the respective factor for the negative/Benign attacks: 623.59 which will also be further explored in the machine learning model stage.
@@ -76,10 +78,10 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
      
      These insights will be further developed into a potential hypothesis/insights in the prediction accuracy when doing machine learning model stage.
 
-  ## 3.2.1: Exploratory Data Analysis (Categorical)
+  ## 3.2.1 Exploratory Data Analysis (Categorical)
   For each of the 6 flags, we created countplots for visualisation. 
     
-  ## 3.2.2: Insights of Exploratory Data Analysis (Categorical)
+  ## 3.2.2 Insights of Exploratory Data Analysis (Categorical)
   Due to the binary nature of the data variables where the values are '1' or '0' for all the flags as well as the categorical ['Label'], we are able to utilise the countplot function in seaborn to best visualise the categorical data. Similar to numerical data, we must acknowledge that using graphical representation for such a large volume of data has its downsides in terms of visual representation. Our key insight is that the RST flag count for all the different types of Malware attacks including Benign can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
     
 # 4. [Dimension Reduction](../SC1015-mini-project/)
