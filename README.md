@@ -48,6 +48,7 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
   We performed the following:
 
   **1. Preliminary Feature Selection:**
+  
   21 relevant variables out of 85 were selected, which can be categorised into 4 types:
   * Total Length of Fwd Packets and Total Length of Bwd Packets: These features represent the total length of data transmitted in the forward and backward directions during a flow. Similar to the total packet counts, anomalously high volumes of data transmission can be indicative of malware activity.
   * Fwd Packet Length Max, Fwd Packet Length Mean, Fwd Packet Length Std, Bwd Packet Length Max, Bwd Packet Length Mean, and Bwd Packet Length Std: 
@@ -56,12 +57,15 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
   * FIN Flag Count, SYN Flag Count, RST Flag Count, PSH Flag Count, ACK Flag Count, and URG Flag Count: These features represent the count of different TCP flags set during a flow. Some types of malware may use specific TCP flag combinations for their communication.
 
   **2. Splitting the dataset in the different type of possible malware data**
+  
   For the purpose of our analysis, we split our dataset depending on the type of malware attacks for exploratory analysis: 4 DataFrames containing variables relating to: Android_Adware attacks, Android_Scareware attacks, Android_SMS_Malware attacks, with Benign attacks as control. Further data cleaning and preparation are done separately for all dataFrames.
       
   **3. Encoding categorical data (label)**
+  
   The categorical variable that we are trying to predict is “Label” - which consists of the 4 different types of android attacks. In order to do any form of analysis on this, we must encode it. For this, we use LabelEncoder from the sklearn.preprocessing library.
   
   **4. Conversion of final cleaned and prepared dataframes to pickle file**
+  
   The final step of data cleaning is to convert the various data frames that we will be using for EDA and for the machine learning techniques
  
  
