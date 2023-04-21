@@ -40,6 +40,11 @@ The objective of our project is two-fold. Firstly, we aim to achieve good accura
 
 The database for this project was extracted from Kaggle. It has 355630 Data points and it contains features of network flow characteristics and statistics. The data is split into four categories, software labelled ‘Android adware’, ‘Android Scareware’, ‘Android SMS Malware’ and ‘Benign’. These will be the response variables we will be examining, where the remaining variables in our dataset will act as listed predictors that we will be using in this study.
 
+
+
+
+
+
 # 2. [Data Preparation and Cleaning](../SC1015-mini-project/)
   In this section of the project, we prepared and cleaned the kaggle dataset to be used in (1) EDA and (2) Dimension reduction in the later sections. We performed the following:
 
@@ -65,6 +70,11 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
   The final step of data cleaning is to convert the various data frames that we will be using for EDA and for the machine learning techniques
  
  
+ 
+ 
+ 
+ 
+ 
 # 3. [Exploratory Data Analysis and Visualisation: Training the models and Predicting Test Data](../SC1015-mini-project/)
   
   In this section we will do general EDA to gather relevant insights. Due to the different nature of the data,  (14 Numerical Columns for the Packets variables and 6 Categorical Data for the Flag variables), we will be breaking it into two parts where we will explore the best method to explore and visualize the different data types for relevant insights.
@@ -76,9 +86,10 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
   **3.1.2 Insights of Exploratory Data Analysis (Numerical)**
   
   To preface we must acknowledge that using graphical representation for such a large volume of (Numerical) data against (Categorical) has its downsides:
-     * As shown in the boxplot and stripplot, there are many outliers in the values, however the value that standout the most visually would be the ['Total Length of Fwd Packet'] for both the Scareware and SMS Malware: Where the outliers have a large spread which is also reflected in their std value.
-     * The mean value of ['Total Length of Fwd Packets'] for Android_Malware attack: 5.39 which is much lower than the respective factor for the negative/Benign attacks: 623.59 which will also be further explored in the machine learning model stage.
-     * Though the boxplots visually show a large amount of outliers reflected throughout all the (Numerical) data, we will not remove them as they are important for anomaly detection. 
+  
+  * As shown in the boxplot and stripplot, there are many outliers in the values, however the value that standout the most visually would be the ['Total Length of Fwd Packet'] for both the Scareware and SMS Malware: Where the outliers have a large spread which is also reflected in their std value.
+  * The mean value of ['Total Length of Fwd Packets'] for Android_Malware attack: 5.39 which is much lower than the respective factor for the negative/Benign attacks: 623.59 which will also be further explored in the machine learning model stage.
+  * Though the boxplots visually show a large amount of outliers reflected throughout all the (Numerical) data, we will not remove them as they are important for anomaly detection. 
      
   These insights will be further developed into a potential hypothesis/insights in the prediction accuracy when doing machine learning model stage.
 
@@ -90,7 +101,11 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
   
   Due to the binary nature of the data variables where the values are '1' or '0' for all the flags as well as the categorical ['Label'], we are able to utilise the countplot function in seaborn to best visualise the categorical data. Similar to numerical data, we must acknowledge that using graphical representation for such a large volume of data has its downsides in terms of visual representation. Our key insight is that the RST flag count for all the different types of Malware attacks including Benign can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
     
-    
+   
+   
+   
+   
+   
     
 # 4. [Dimension Reduction](../SC1015-mini-project/)
   As we have seen in “Part 1: Data Cleaning and Preparation”, our dataset has a high dimension: there are a total of 21 columns left even after Preliminary Feature Selection. In this section we shall be exploring dimension reduction for both the (Numerical) and (Categorical) data of the datasets.
@@ -134,6 +149,10 @@ This proves the key insight found in Part 2.2: Insights of Exploratory Data Anal
 
 
 
+
+
+
+
 # 5. [Core Analysis - Machine Learning](../SC1015-mini-project/)
   
   Machine Learning techniques are being used as a quick and efficient means of malware detection. 
@@ -156,11 +175,19 @@ Explore both uni variate, multi variate
 2. Model 2 (numerical): Random forest
 
 
+
+
+
+
+
+
+
+
 # 6. [Conclusion](../SC1015-mini-project/)
-  What is the OUTCOME of your project? Did it solve your original problem? Anything interesting?
+_  What is the OUTCOME of your project? Did it solve your original problem? Anything interesting?
   What are your data-driven INSIGHTS and recommendations / views towards the target problem?
   Future improvements: Using ensemble learning the performance/accuracy of the classification models can be enhanced. The different ensemble learning techniques are bagging, boosting, and voting.
-
+_
 
 
 
