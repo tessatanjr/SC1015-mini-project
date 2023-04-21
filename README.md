@@ -26,6 +26,9 @@ This README briefly highlights what we have accomplished in this project. For a 
 6. Conclusion
 
 
+
+
+
 # 1. [Problem Formulation](../SC1015-mini-project/)
 
 **Background**: The spread of malware is a growing issue with severe consequences. According to Kaspersky Security Network, in Q3 2022, a total of 5,623,670 mobile malware, adware, and riskware attacks were blocked. Thus, in order to investigate our cybersecurity, we decided to analyse the capabilities of android malware detection models.
@@ -34,7 +37,7 @@ This README briefly highlights what we have accomplished in this project. For a 
 
 The objective of our project is two-fold. Firstly, we aim to achieve good accuracy in detecting malware from samples of benign and malware applications using 2 approaches. We began by selecting features to analyse based on their definitions, and proceeded to use dimension reduction to further improve this analysis. Dimension reduction aids with simplifying and optimising data analysis and machine learning algorithms. Secondly, we compared features/characteristics of different data types to provide recommendations on the best strategy for malware detection. This allows us to resolve the model selection problem: weighing between logistic regression (categorical) vs random forest (numerical).
 
-**Our question:** 
+**Our question:** What is the best variable to be analysed in malware detection?
 
 **Our dataset:** [Android Malware Detection on Kaggle (updated-version Feb 2023)](https://www.kaggle.com/datasets/subhajournal/android-malware-detection?select=Android_Malware.csv)
 
@@ -116,9 +119,7 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
 
   PCA identifies the directions in which the data varies the most and projects the data onto a new coordinate system defined by these directions, called principal components. This allows for the reduction of the dimensionality of the data while preserving most of its variability.
 
-  The resulting PCA score represents the proportion of the total variance in the data that is explained by the two principal components. In this case, since we reduced the dimensionality of the data to 2 dimensions, the score represents the sum of the explained variance ratios of the two principal components.
-
-  The score ranges from 0 to 1, where 1 indicates that all of the variance in the original data is explained by the principal components. A score of 0 indicates that none of the variance is explained by the principal components. In general, a higher score indicates that the principal components are able to capture more of the variance in the original data.
+  The resulting PCA score represents the proportion of the total variance in the data that is explained by the two principal components. In this case, since we reduced the dimensionality of the data to 2 dimensions, the score represents the sum of the explained variance ratios of the two principal components. The score ranges from 0 to 1, where 1 indicates that all of the variance in the original data is explained by the principal components. A score of 0 indicates that none of the variance is explained by the principal components. In general, a higher score indicates that the principal components are able to capture more of the variance in the original data.
 
   In this case, the PCA score of around 0.4 to 0.6 suggests that the two principal components are able to capture about 40% ~ 60% of the variance in the original data. This means that the two principal components may not be able to fully capture the patterns in the data, and there may be additional features or dimensions that are important for explaining the variance in the data.
   
@@ -126,26 +127,23 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
 
    **4.1.2: Selecting optimal n-component score (Numerical)**
 
-  Here are our key insights: From the 14 variables we have reduced the dimensions to 8 total variables. The General Reduction can be good control therefore it will be used, however we will include the segmented dimension reduced variables to help us better answer the question since the [What are the factors that help predict the type of malware attack that happened on an Android device].
+  Here are our key insights: From the 14 variables we have reduced the dimensions to 8 total variables. The General Reduction can be good control therefore it will be used, however we will include the segmented dimension reduced variables to help us better answer the question since the [What are the variables that help predict the type of malware attack that happened on an Android device].
 
    **4.2.1: Dimension Reduction using NMF (Categorical)**
 
-  MCA, on the other hand, is a technique used for analysing categorical data. It creates a new set of variables (called dimensions) that can be used to visualise the relationships between the different categories and to identify patterns and trends.
-The goal of Non-Negative Matrix Factorization (NMF) is to factorise a given data matrix into two non-negative matrices such that their product approximates the original data matrix. The NMF score measures the squared Euclidean distance between the original data matrix and the reconstructed data matrix obtained. 
+On the other hand, MCA is a technique used for analysing categorical data. It creates a new set of variables (called dimensions) that can be used to visualise the relationships between the different categories and to identify patterns and trends.
+  
+The goal of Non-Negative Matrix Factorization (NMF) is to factorise a given data matrix into two non-negative matrices such that their product approximates the original data matrix. The NMF score measures the squared Euclidean distance between the original data matrix and the reconstructed data matrix obtained. This score refers to the reconstruction error score, which is a measure of how well the original data matrix can be approximated by the low-rank factorization obtained by NMF. The NMF score is useful for determining the appropriate NUMBER of components to use in the factorisation. 
 
-  The NMF score refers to the reconstruction error score, which is a measure of how well the original data matrix can be approximated by the low-rank factorization obtained by NMF.
-
-  The NMF score is useful for determining the appropriate NUMBER of components to use in the factorisation. A common approach is to try different values of n_components and choose the value that produces the lowest reconstruction error. However, it is important to note that choosing the value based solely on the reconstruction error may not always lead to the best performance for downstream tasks.
+A common approach is to try different values of n_components and choose the value that produces the lowest reconstruction error. However, it is important to note that choosing the value based solely on the reconstruction error may not always lead to the best performance for downstream tasks.
     
    **4.2.2: Selecting optimal n-component score (Categorical)**
 
   Using the NMF dimension reduction method we may also set out to find whether the Key Insight generated from Part 2: The RST flag count for all the different types of Malware attacks including Benign can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
-The same NMF Score for all 3 types of Malware attack:
-This proves the key insight found in Part 2.2: Insights of Exploratory Data Analysis (Categorical), where the RST Flag Count is noted to be the same throughout and the allows us to carry on with the now proven hypothesis that ['RST Flag Count'] can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
+  
+The same NMF Score for all 3 types of Malware attack proves the key insight found in Part 2.2: Insights of Exploratory Data Analysis (Categorical), where the RST Flag Count is noted to be the same throughout. This allows us to carry on with the now proven hypothesis that ['RST Flag Count'] can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
 
-  This further reduces the actual columns of dimension for the categorical to only 5 Flag Counts therefore although the result acquired from the NMF Dimension Reduction is decent ranging from around 20 - 30 NMF Score at n_components = 4. A lower NMF score indicates a better approximation, while a higher NMF score indicates a worse approximation.
-
-  We have proceeded to continue without Dimension Reduction for the categorical data of the Flag Counts as in the end we only have 5 columns of data left, the omission of one more flag count to make the n_component = 4 is not worth the approximation error reflected in the NMF Score and any higher would further increased the approximation error.
+  This further reduces the actual columns of dimension for the categorical to only 5 Flag Counts therefore although the result acquired from the NMF Dimension Reduction is decent ranging from around 20 - 30 NMF Score at n_components = 4. A lower NMF score indicates a better approximation, while a higher NMF score indicates a worse approximation. We proceeded to continue without Dimension Reduction for the categorical data of the Flag Counts, given that we only have 5 columns of data left and the omission of one more flag count (to make the n_component = 4) is not worth the approximation error reflected in the NMF Score, while any higher would further increased the approximation error.
 
 
 
@@ -159,13 +157,13 @@ This proves the key insight found in Part 2.2: Insights of Exploratory Data Anal
 
 **1. Supervised:**
 
-After dimension reduction, how can we best evaluate the data? Classification algorithm is used to predict the class labels of new instances based on the reduced data. To do this, split the reduced data into training and test sets, fit a classification model to the training data, and then use the model to predict the class labels of the test data.
-Random Forests is an ensemble learning method that constructs multiple decision trees and combines their predictions to classify new data. It can be used to classify new malware samples based on the attributes that are most informative for distinguishing between different clusters.
+* After dimension reduction, how can we best evaluate the data? Classification algorithm is used to predict the class labels of new instances based on the reduced data. To do this, split the reduced data into training and test sets, fit a classification model to the training data, and then use the model to predict the class labels of the test data.
+* Random Forests is an ensemble learning method that constructs multiple decision trees and combines their predictions to classify new data. It can be used to classify new malware samples based on the attributes that are most informative for distinguishing between different clusters.
 How model 1 solves objective (numerical):
 
 **2. Unsupervised:**
 
-clustering-based techniques 
+_clustering-based techniques_
 A hierarchical logistic regression model is proposed for studying data with group structure and a binary response variable.
 How model 2 solves objective (categorical):
 
@@ -184,10 +182,8 @@ Explore both uni variate, multi variate
 
 
 # 6. [Conclusion](../SC1015-mini-project/)
-_  What is the OUTCOME of your project? Did it solve your original problem? Anything interesting?
+<!-- What is the OUTCOME of your project? Did it solve your original problem? Anything interesting?
   What are your data-driven INSIGHTS and recommendations / views towards the target problem?
-  Future improvements: Using ensemble learning the performance/accuracy of the classification models can be enhanced. The different ensemble learning techniques are bagging, boosting, and voting.
-_
-
+  Future improvements: Using ensemble learning the performance/accuracy of the classification models can be enhanced. The different ensemble learning techniques are bagging, boosting, and voting. -->
 
 
