@@ -23,8 +23,7 @@ This README briefly highlights what we have accomplished in this project. For a 
 3. Exploratory Data Analysis
 4. Dimensionality Reduction
 5. Machine Learning
-6. Data Driven Insights and Conclusion
-7. References
+6. Conclusion
 
 
 # 1. [Problem Formulation](../SC1015-mini-project/)
@@ -42,10 +41,7 @@ The objective of our project is two-fold. Firstly, we aim to achieve good accura
 The database for this project was extracted from Kaggle. It has 355630 Data points and it contains features of network flow characteristics and statistics. The data is split into four categories, software labelled ‘Android adware’, ‘Android Scareware’, ‘Android SMS Malware’ and ‘Benign’. These will be the response variables we will be examining, where the remaining variables in our dataset will act as listed predictors that we will be using in this study.
 
 # 2. [Data Preparation and Cleaning](../SC1015-mini-project/)
-  In this section of the project, we prepared and cleaned the kaggle dataset. We split the dataset into 4 other types and 
-  (1) EDA and (2) Dimension reduction in the later sections.
-
-  We performed the following:
+  In this section of the project, we prepared and cleaned the kaggle dataset to be used in (1) EDA and (2) Dimension reduction in the later sections. We performed the following:
 
   **1. Preliminary Feature Selection:**
   
@@ -95,6 +91,7 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
   Due to the binary nature of the data variables where the values are '1' or '0' for all the flags as well as the categorical ['Label'], we are able to utilise the countplot function in seaborn to best visualise the categorical data. Similar to numerical data, we must acknowledge that using graphical representation for such a large volume of data has its downsides in terms of visual representation. Our key insight is that the RST flag count for all the different types of Malware attacks including Benign can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
     
     
+    
 # 4. [Dimension Reduction](../SC1015-mini-project/)
   As we have seen in “Part 1: Data Cleaning and Preparation”, our dataset has a high dimension: there are a total of 21 columns left even after Preliminary Feature Selection. In this section we shall be exploring dimension reduction for both the (Numerical) and (Categorical) data of the datasets.
 
@@ -112,11 +109,11 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
   
   At this stage we can select carefully the higher PCA score which indicates that the PC are able to capture more of the variance in the original data. Up till this point for each type of Malware attack, we have decided to either use PCA for a General Reduction in dimension without and preliminary selecting of specific feature types as well as segmenting it into Forward Packets, Backward Packets and Flow.
 
-   **4.1.2: Selecting optimal n-component score (Numerical)
+   **4.1.2: Selecting optimal n-component score (Numerical)**
 
   Here are our key insights: From the 14 variables we have reduced the dimensions to 8 total variables. The General Reduction can be good control therefore it will be used, however we will include the segmented dimension reduced variables to help us better answer the question since the [What are the factors that help predict the type of malware attack that happened on an Android device].
 
-   **4.2.1: Dimension Reduction using NMF (Categorical)
+   **4.2.1: Dimension Reduction using NMF (Categorical)**
 
   MCA, on the other hand, is a technique used for analysing categorical data. It creates a new set of variables (called dimensions) that can be used to visualise the relationships between the different categories and to identify patterns and trends.
 The goal of Non-Negative Matrix Factorization (NMF) is to factorise a given data matrix into two non-negative matrices such that their product approximates the original data matrix. The NMF score measures the squared Euclidean distance between the original data matrix and the reconstructed data matrix obtained. 
@@ -125,7 +122,7 @@ The goal of Non-Negative Matrix Factorization (NMF) is to factorise a given data
 
   The NMF score is useful for determining the appropriate NUMBER of components to use in the factorisation. A common approach is to try different values of n_components and choose the value that produces the lowest reconstruction error. However, it is important to note that choosing the value based solely on the reconstruction error may not always lead to the best performance for downstream tasks.
     
-   **4.2.2: Selecting optimal n-component score (Categorical)
+   **4.2.2: Selecting optimal n-component score (Categorical)**
 
   Using the NMF dimension reduction method we may also set out to find whether the Key Insight generated from Part 2: The RST flag count for all the different types of Malware attacks including Benign can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
 The same NMF Score for all 3 types of Malware attack:
@@ -134,6 +131,7 @@ This proves the key insight found in Part 2.2: Insights of Exploratory Data Anal
   This further reduces the actual columns of dimension for the categorical to only 5 Flag Counts therefore although the result acquired from the NMF Dimension Reduction is decent ranging from around 20 - 30 NMF Score at n_components = 4. A lower NMF score indicates a better approximation, while a higher NMF score indicates a worse approximation.
 
   We have proceeded to continue without Dimension Reduction for the categorical data of the Flag Counts as in the end we only have 5 columns of data left, the omission of one more flag count to make the n_component = 4 is not worth the approximation error reflected in the NMF Score and any higher would further increased the approximation error.
+
 
 
 # 5. [Core Analysis - Machine Learning](../SC1015-mini-project/)
