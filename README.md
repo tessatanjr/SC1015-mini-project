@@ -29,20 +29,16 @@ This README briefly highlights what we have accomplished in this project. For a 
 
 # 1. [Problem Formulation](../SC1015-mini-project/)
 
-## Background
-The spread of malware is a growing issue with severe consequences. According to Kaspersky Security Network, in Q3 2022, a total of 5,623,670 mobile malware, adware, and riskware attacks were blocked. Thus, in order to investigate our cybersecurity, we decided to analyse the capabilities of android malware detection models.
+*Background*: The spread of malware is a growing issue with severe consequences. According to Kaspersky Security Network, in Q3 2022, a total of 5,623,670 mobile malware, adware, and riskware attacks were blocked. Thus, in order to investigate our cybersecurity, we decided to analyse the capabilities of android malware detection models.
 
-## Motivation
-When it comes to preventing malware attacks, there are multiple different vantage points in which we can tackle the issue from. For this project, we have chosen to focus specifically on leveraging network data to detect malware. Why did we choose this approach? Well, malware often communicates with command-and-control servers over the network, and this communication can be captured in network flow data. We discovered that by analyzing network flow data and detecting patterns, we are able to identify the suspiciousness of an application, which aids in malware detection.
+*Motivation*: When it comes to preventing malware attacks, there are multiple different vantage points in which we can tackle the issue from. For this project, we have chosen to focus specifically on leveraging network data to detect malware. Why did we choose this approach? Well, malware often communicates with command-and-control servers over the network, and this communication can be captured in network flow data. We discovered that by analyzing network flow data and detecting patterns, we are able to identify the suspiciousness of an application, which aids in malware detection.
 
 The objective of our project is two-fold. Firstly, we aim to achieve good accuracy in detecting malware from samples of benign and malware applications using 2 approaches. We began by selecting features to analyse based on their definitions, and proceeded to use dimension reduction to further improve this analysis. Dimension reduction aids with simplifying and optimising data analysis and machine learning algorithms. Secondly, we compared features/characteristics of different data types to provide recommendations on the best strategy for malware detection. This allows us to resolve the model selection problem: weighing between logistic regression (categorical) vs random forest (numerical).
 
-### Our question: 
-### Our dataset: 
-*Android Malware Detection on Kaggle (updated-version Feb 2023)*
+*Our question:* 
+*Our dataset:* Android Malware Detection on Kaggle (updated-version Feb 2023) <https://www.kaggle.com/datasets/subhajournal/android-malware-detection?select=Android_Malware.csv>
 
 The database for this project was extracted from Kaggle. It has 355630 Data points and it contains features of network flow characteristics and statistics. The data is split into four categories, software labelled ‘Android adware’, ‘Android Scareware’, ‘Android SMS Malware’ and ‘Benign’. These will be the response variables we will be examining, where the remaining variables in our dataset will act as listed predictors that we will be using in this study.
-
 
 # 2. [Data Preparation and Cleaning](../SC1015-mini-project/)
   In this section of the project, we prepared and cleaned the kaggle dataset. We split the dataset into 4 other types and 
@@ -50,7 +46,7 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
 
   We performed the following:
 
-  ## 1. Preliminary Feature Selection: 
+  *1. Preliminary Feature Selection:* 
   21 relevant variables out of 85 were selected, which can be categorised into 4 types:
   * Total Length of Fwd Packets and Total Length of Bwd Packets: These features represent the total length of data transmitted in the forward and backward directions during a flow. Similar to the total packet counts, anomalously high volumes of data transmission can be indicative of malware activity.
   * Fwd Packet Length Max, Fwd Packet Length Mean, Fwd Packet Length Std, Bwd Packet Length Max, Bwd Packet Length Mean, and Bwd Packet Length Std: 
