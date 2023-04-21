@@ -26,6 +26,7 @@ This README briefly highlights what we have accomplished in this project. For a 
 6. Data Driven Insights and Conclusion
 7. References
 
+
 # 1. [Problem Formulation](../SC1015-mini-project/)
 
 ## Background
@@ -42,18 +43,20 @@ The objective of our project is two-fold. Firstly, we aim to achieve good accura
 
 The database for this project was extracted from Kaggle. It has 355630 Data points and it contains features of network flow characteristics and statistics. The data is split into four categories, software labelled ‘Android adware’, ‘Android Scareware’, ‘Android SMS Malware’ and ‘Benign’. These will be the response variables we will be examining, where the remaining variables in our dataset will act as listed predictors that we will be using in this study.
 
+
 # 2. [Data Preparation and Cleaning](../SC1015-mini-project/)
   In this section of the project, we prepared and cleaned the kaggle dataset. We split the dataset into 4 other types and 
   (1) EDA and (2) Dimension reduction in the later sections.
 
   We performed the following:
 
-  ## 1. Preliminary Feature Selection: 21 relevant variables out of 85 were selected, which can be categorised into 4 types:
-  ⋅⋅⋅(1) Total Length of Fwd Packets and Total Length of Bwd Packets: These features represent the total length of data transmitted in the forward and backward directions during a flow. Similar to the total packet counts, anomalously high volumes of data transmission can be indicative of malware activity.
-  ⋅⋅⋅(2) Fwd Packet Length Max, Fwd Packet Length Mean, Fwd Packet Length Std, Bwd Packet Length Max, Bwd Packet Length Mean, and Bwd Packet Length Std: 
+  ## 1. Preliminary Feature Selection: 
+  21 relevant variables out of 85 were selected, which can be categorised into 4 types:
+  * Total Length of Fwd Packets and Total Length of Bwd Packets: These features represent the total length of data transmitted in the forward and backward directions during a flow. Similar to the total packet counts, anomalously high volumes of data transmission can be indicative of malware activity.
+  * Fwd Packet Length Max, Fwd Packet Length Mean, Fwd Packet Length Std, Bwd Packet Length Max, Bwd Packet Length Mean, and Bwd Packet Length Std: 
   These features represent various statistics of packet length for both the forward and backward directions during a flow. Malware may use specific packet length patterns to hide its communication, which can be identified through these statistics. For example, high standard deviations in packet length can be an indicator of encrypted traffic, which may be used by malware to hide its communication.
-  (3) Flow Bytes/s and Flow Packets/s: These features represent the rate of bytes and packets transmitted per second during a flow. High rates can indicate potential malware activity.
-  (4) FIN Flag Count, SYN Flag Count, RST Flag Count, PSH Flag Count, ACK Flag Count, and URG Flag Count: These features represent the count of different TCP flags set during a flow. Some types of malware may use specific TCP flag combinations for their communication.
+  * Flow Bytes/s and Flow Packets/s: These features represent the rate of bytes and packets transmitted per second during a flow. High rates can indicate potential malware activity.
+  * FIN Flag Count, SYN Flag Count, RST Flag Count, PSH Flag Count, ACK Flag Count, and URG Flag Count: These features represent the count of different TCP flags set during a flow. Some types of malware may use specific TCP flag combinations for their communication.
 
   ## 2. Splitting the dataset in the different type of possible malware data
   For the purpose of our analysis, we split our dataset depending on the type of malware attacks for exploratory analysis: 4 DataFrames containing variables relating to: Android_Adware attacks, Android_Scareware attacks, Android_SMS_Malware attacks, with Benign attacks as control. Further data cleaning and preparation are done separately for all dataFrames.
@@ -63,6 +66,7 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
   
   ## 4. Conversion of final cleaned and prepared dataframes to pickle file
   The final step of data cleaning is to convert the various data frames that we will be using for EDA and for the machine learning techniques
+ 
  
 # 3. [Exploratory Data Analysis and Visualisation: Training the models and Predicting Test Data](../SC1015-mini-project/)
   In this section we will do general EDA to gather relevant insights. Due to the different nature of the data,  (14 Numerical Columns for the Packets variables and 6 Categorical Data for the Flag variables), we will be breaking it into two parts where we will explore the best method to explore and visualize the different data types for relevant insights.
@@ -83,6 +87,7 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
     
   ## 3.2.2 Insights of Exploratory Data Analysis (Categorical)
   Due to the binary nature of the data variables where the values are '1' or '0' for all the flags as well as the categorical ['Label'], we are able to utilise the countplot function in seaborn to best visualise the categorical data. Similar to numerical data, we must acknowledge that using graphical representation for such a large volume of data has its downsides in terms of visual representation. Our key insight is that the RST flag count for all the different types of Malware attacks including Benign can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
+    
     
 # 4. [Dimension Reduction](../SC1015-mini-project/)
   As we have seen in “Part 1: Data Cleaning and Preparation”, our dataset has a high dimension: there are a total of 21 columns left even after Preliminary Feature Selection. In this section we shall be exploring dimension reduction for both the (Numerical) and (Categorical) data of the datasets.
@@ -124,6 +129,7 @@ This proves the key insight found in Part 2.2: Insights of Exploratory Data Anal
 
   We have proceeded to continue without Dimension Reduction for the categorical data of the Flag Counts as in the end we only have 5 columns of data left, the omission of one more flag count to make the n_component = 4 is not worth the approximation error reflected in the NMF Score and any higher would further increased the approximation error.
 
+
 # 5. [Core Analysis - Machine Learning](../SC1015-mini-project/)
   Machine Learning techniques are being used as a quick and efficient means of malware detection. 
 
@@ -141,6 +147,7 @@ How model 2 solves objective (categorical):
 Explore both uni variate, multi variate 
 
 2. Model 2 (numerical): Random forest
+
 
 # 6. [Conclusion](../SC1015-mini-project/)
   What is the OUTCOME of your project? Did it solve your original problem? Anything interesting?
