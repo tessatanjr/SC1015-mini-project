@@ -80,7 +80,7 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
      - The mean value of ['Total Length of Fwd Packets'] for Android_Malware attack: 5.39 which is much lower than the respective factor for the negative/Benign attacks: 623.59 which will also be further explored in the machine learning model stage.
      - Though the boxplots visually show a large amount of outliers reflected throughout all the (Numerical) data, we will not remove them as they are important for anomaly detection. 
      
-     These insights will be further developed into a potential hypothesis/insights in the prediction accuracy when doing machine learning model stage.
+  These insights will be further developed into a potential hypothesis/insights in the prediction accuracy when doing machine learning model stage.
 
   ## 3.2.1 Exploratory Data Analysis (Categorical)
   For each of the 6 flags, we created countplots for visualisation. 
