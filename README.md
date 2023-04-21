@@ -46,20 +46,20 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
 
   We performed the following:
 
-  ### 1. Preliminary Feature Selection: 21 relevant variables out of 85 were selected, which can be categorised into 4 types:
+  ## 1. Preliminary Feature Selection: 21 relevant variables out of 85 were selected, which can be categorised into 4 types:
       (1) Total Length of Fwd Packets and Total Length of Bwd Packets: These features represent the total length of data transmitted in the forward and backward directions during a flow. Similar to the total packet counts, anomalously high volumes of data transmission can be indicative of malware activity.
       (2) Fwd Packet Length Max, Fwd Packet Length Mean, Fwd Packet Length Std, Bwd Packet Length Max, Bwd Packet Length Mean, and Bwd Packet Length Std: 
   These features represent various statistics of packet length for both the forward and backward directions during a flow. Malware may use specific packet length patterns to hide its communication, which can be identified through these statistics. For example, high standard deviations in packet length can be an indicator of encrypted traffic, which may be used by malware to hide its communication.
       (3) Flow Bytes/s and Flow Packets/s: These features represent the rate of bytes and packets transmitted per second during a flow. High rates can indicate potential malware activity.
       (4) FIN Flag Count, SYN Flag Count, RST Flag Count, PSH Flag Count, ACK Flag Count, and URG Flag Count: These features represent the count of different TCP flags set during a flow. Some types of malware may use specific TCP flag combinations for their communication.
 
-  ### 2. Splitting the dataset in the different type of possible malware data
+  ## 2. Splitting the dataset in the different type of possible malware data
       For the purpose of our analysis, we split our dataset depending on the type of malware attacks for exploratory analysis: 4 DataFrames containing variables relating to: Android_Adware attacks, Android_Scareware attacks, Android_SMS_Malware attacks, with Benign attacks as control. Further data cleaning and preparation are done separately for all dataFrames.
       
-  ### 3. Encoding categorical data (label)
+  ## 3. Encoding categorical data (label)
       The categorical variable that we are trying to predict is “Label” - which consists of the 4 different types of android attacks. In order to do any form of analysis on this, we must encode it. For this, we use LabelEncoder from the sklearn.preprocessing library.
   
-  ### 4. Conversion of final cleaned and prepared dataframes to pickle file
+  ## 4. Conversion of final cleaned and prepared dataframes to pickle file
       The final step of data cleaning is to convert the various data frames that we will be using for EDA and for the machine learning techniques
  
 # 3. [Exploratory Data Analysis and Visualisation: Training the models and Predicting Test Data](../SC1015-mini-project/)
@@ -125,12 +125,12 @@ This proves the key insight found in Part 2.2: Insights of Exploratory Data Anal
 # 5. [Core Analysis - Machine Learning](../SC1015-mini-project/)
   Machine Learning techniques are being used as a quick and efficient means of malware detection. 
 
-### 1. Supervised: 
+## 1. Supervised: 
 After dimension reduction, how can we best evaluate the data? Classification algorithm is used to predict the class labels of new instances based on the reduced data. To do this, split the reduced data into training and test sets, fit a classification model to the training data, and then use the model to predict the class labels of the test data.
 Random Forests is an ensemble learning method that constructs multiple decision trees and combines their predictions to classify new data. It can be used to classify new malware samples based on the attributes that are most informative for distinguishing between different clusters.
 How model 1 solves objective (numerical):
 
-### 2. Unsupervised: 
+## 2. Unsupervised: 
 clustering-based techniques 
 A hierarchical logistic regression model is proposed for studying data with group structure and a binary response variable.
 How model 2 solves objective (categorical):
