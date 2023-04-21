@@ -114,7 +114,7 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
    
     
 # 4. [Dimension Reduction](../SC1015-mini-project/)
-  As we have seen in “Part 1: Data Cleaning and Preparation”, our dataset has a high dimension: there are a total of 21 columns left even after Preliminary Feature Selection. In this section we shall be exploring dimension reduction for both the (Numerical) and (Categorical) data of the datasets.
+  As we have seen in *“Part 1: Data Cleaning and Preparation”*, our dataset has a high dimension: there are a total of 21 columns left even after Preliminary Feature Selection. In this section we shall be exploring dimension reduction for both the (Numerical) and (Categorical) data of the datasets.
 
   For the (Numerical Variables), dimension reduction will be achieved using Principal Component Analysis (PCA), which is the general convention for continuous variables. However for categorical data, Non-negative Matrix Factorization (MCA) is used instead. This is because PCA is often used for linear dimension reduction and finding the most important features in a dataset, while NMF is useful for identifying patterns in non-negative data and can produce sparse and interpretable factorizations.
   
@@ -142,9 +142,9 @@ A common approach is to try different values of n_components and choose the valu
     
    **4.2.2: Selecting optimal n-component score (Categorical)**
 
-  Using the NMF dimension reduction method we may also set out to find whether the Key Insight generated from Part 2: The RST flag count for all the different types of Malware attacks including Benign can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
+  Using the NMF dimension reduction method we may also set out to find whether the Key Insight generated from "Part 2": The RST flag count for all the different types of Malware attacks including Benign can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
   
-The same NMF Score for all 3 types of Malware attack proves the key insight found in Part 2.2: Insights of Exploratory Data Analysis (Categorical), where the RST Flag Count is noted to be the same throughout. This allows us to carry on with the now proven hypothesis that ['RST Flag Count'] can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
+The same NMF Score for all 3 types of Malware attack proves the key insight found in *"Part 2.2: Insights of Exploratory Data Analysis (Categorical)"*, where the RST Flag Count is noted to be the same throughout. This allows us to carry on with the now proven hypothesis that ['RST Flag Count'] can be omitted in the machine learning model stage as it is always not triggered irregardless of the ['Label'].
 
   This further reduces the actual columns of dimension for the categorical to only 5 Flag Counts therefore although the result acquired from the NMF Dimension Reduction is decent ranging from around 20 - 30 NMF Score at n_components = 4. A lower NMF score indicates a better approximation, while a higher NMF score indicates a worse approximation. We proceeded to continue without Dimension Reduction for the categorical data of the Flag Counts, given that we only have 5 columns of data left and the omission of one more flag count (to make the n_component = 4) is not worth the approximation error reflected in the NMF Score, while any higher would further increased the approximation error.
 
