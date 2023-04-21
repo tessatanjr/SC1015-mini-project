@@ -31,9 +31,12 @@ This README briefly highlights what we have accomplished in this project. For a 
 
 # 1. [Problem Formulation](../SC1015-mini-project/)
 
-**Background**: The spread of malware is a growing issue with severe consequences. According to Kaspersky Security Network, in Q3 2022, a total of 5,623,670 mobile malware, adware, and riskware attacks were blocked. Thus, in order to investigate our cybersecurity, we decided to analyse the capabilities of android malware detection models.
+**Background**
+The spread of malware is a growing issue with severe consequences. According to Kaspersky Security Network, in Q3 2022, a total of 5,623,670 mobile malware, adware, and riskware attacks were blocked. Thus, in order to investigate our cybersecurity, we decided to analyse the capabilities of android malware detection models.
 
-**Motivation**: When it comes to preventing malware attacks, there are multiple different vantage points in which we can tackle the issue from. For this project, we have chosen to focus specifically on leveraging network data to detect malware. Why did we choose this approach? Well, malware often communicates with command-and-control servers over the network, and this communication can be captured in network flow data. We discovered that by analyzing network flow data and detecting patterns, we are able to identify the suspiciousness of an application, which aids in malware detection.
+**Motivation**
+
+When it comes to preventing malware attacks, there are multiple different vantage points in which we can tackle the issue from. For this project, we have chosen to focus specifically on leveraging network data to detect malware. Why did we choose this approach? Well, malware often communicates with command-and-control servers over the network, and this communication can be captured in network flow data. We discovered that by analyzing network flow data and detecting patterns, we are able to identify the suspiciousness of an application, which aids in malware detection.
 
 The objective of our project is two-fold. Firstly, we aim to achieve good accuracy in detecting malware from samples of benign and malware applications using 2 approaches. We began by selecting features to analyse based on their definitions, and proceeded to use dimension reduction to further improve this analysis. Dimension reduction aids with simplifying and optimising data analysis and machine learning algorithms. Secondly, we compared features/characteristics of different data types to provide recommendations on the best strategy for malware detection. This allows us to resolve the model selection problem: weighing between logistic regression (categorical) vs random forest (numerical).
 
@@ -115,21 +118,21 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
 
   For the (Numerical Variables), dimension reduction will be achieved using Principal Component Analysis (PCA), which is the general convention for continuous variables. However for categorical data, Non-negative Matrix Factorization (MCA) is used instead. This is because PCA is often used for linear dimension reduction and finding the most important features in a dataset, while NMF is useful for identifying patterns in non-negative data and can produce sparse and interpretable factorizations.
   
-  **4.1.1: Dimension Reduction using PCA (Numerical)**
+  **4.1.1 Dimension Reduction using PCA (Numerical)**
 
-  PCA identifies the directions in which the data varies the most and projects the data onto a new coordinate system defined by these directions, called principal components. This allows for the reduction of the dimensionality of the data while preserving most of its variability.
+  PCA is a technique reducing the number of variables in a dataset while retaining as much information as possible. It identifies the directions in which the data varies the most and projects the data onto a new coordinate system defined by these directions, called principal components (PC). This allows for the reduction of the dimensionality of the data while preserving most of its variability.
 
-  The resulting PCA score represents the proportion of the total variance in the data that is explained by the two principal components. In this case, since we reduced the dimensionality of the data to 2 dimensions, the score represents the sum of the explained variance ratios of the two principal components. The score ranges from 0 to 1, where 1 indicates that all of the variance in the original data is explained by the principal components. A score of 0 indicates that none of the variance is explained by the principal components. In general, a higher score indicates that the principal components are able to capture more of the variance in the original data.
+  The resulting PCA score represents the proportion of the total variance in the data that is explained by the two PC. In this case, since we reduced the dimensionality of the data to 2 dimensions, the score represents the sum of the explained variance ratios of the two PC. The score ranges from 0 to 1, where 1 indicates that all of the variance in the original data is explained by the principal components. A score of 0 indicates that none of the variance is explained by the principal components. In general, a higher score indicates that the PC are able to capture more of the variance in the original data.
 
-  In this case, the PCA score of around 0.4 to 0.6 suggests that the two principal components are able to capture about 40% ~ 60% of the variance in the original data. This means that the two principal components may not be able to fully capture the patterns in the data, and there may be additional features or dimensions that are important for explaining the variance in the data.
+  In this case, the PCA score of around 0.4 ~ 0.6 suggests that the two principal components are able to capture about 40% ~ 60% of the variance in the original data. This means that the two PC may not be able to fully capture the patterns in the data, and there may be additional dimensions that are important for explaining the variance in the data.
   
   At this stage we can select carefully the higher PCA score which indicates that the PC are able to capture more of the variance in the original data. Up till this point for each type of Malware attack, we have decided to either use PCA for a General Reduction in dimension without and preliminary selecting of specific feature types as well as segmenting it into Forward Packets, Backward Packets and Flow.
 
-   **4.1.2: Selecting optimal n-component score (Numerical)**
+   **4.1.2 Selecting optimal n-component score (Numerical)**
 
   Here are our key insights: From the 14 variables we have reduced the dimensions to 8 total variables. The General Reduction can be good control therefore it will be used, however we will include the segmented dimension reduced variables to help us better answer the question since the [What are the variables that help predict the type of malware attack that happened on an Android device].
 
-   **4.2.1: Dimension Reduction using NMF (Categorical)**
+   **4.2.1 Dimension Reduction using NMF (Categorical)**
 
 On the other hand, MCA is a technique used for analysing categorical data. It creates a new set of variables (called dimensions) that can be used to visualise the relationships between the different categories and to identify patterns and trends.
   
