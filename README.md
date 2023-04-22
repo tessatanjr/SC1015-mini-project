@@ -38,9 +38,9 @@ The spread of malware is a growing issue with severe consequences. According to 
 
 When it comes to preventing malware attacks, there are multiple different vantage points in which we can tackle the issue from. For this project, we have chosen to focus specifically on leveraging network data to detect malware. Why did we choose this approach? Well, malware often communicates with command-and-control servers over the network, and this communication can be captured in network flow data. We discovered that by analyzing network flow data and detecting patterns, we are able to identify the suspiciousness of an application, which aids in malware detection.
 
-The objective of our project is two-fold. Firstly, we aim to achieve good accuracy in detecting malware from samples of benign and malware applications using 2 approaches. We began by selecting features to analyse based on their definitions, and proceeded to use dimension reduction to further improve this analysis. Dimension reduction aids with simplifying and optimising data analysis and machine learning algorithms. Secondly, we compared features/characteristics of different data types to provide recommendations on the best strategy for malware detection. This allows us to resolve the model selection problem: weighing between logistic regression (categorical) vs random forest (numerical).
+The objective of our project is two-fold. Firstly, we aim to achieve good accuracy in detecting malware from samples of benign and malware applications using 2 approaches. We began by selecting features to analyse based on their definitions, and proceeded to use dimension reduction to further improve this analysis. Dimension reduction aids with simplifying and optimising data analysis and machine learning algorithms. Secondly, we compared features/characteristics of different data types to provide recommendations on the best strategy for malware detection. 
 
-**Our question:** What is the best variable to be analysed in malware detection?
+**Our question:** What are the variables that best predict the type of malware attack that happened on an Android device.
 
 **Our dataset:** [Android Malware Detection on Kaggle (updated-version Feb 2023)](https://www.kaggle.com/datasets/subhajournal/android-malware-detection?select=Android_Malware.csv)
 
@@ -87,7 +87,7 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
   
   In this section we will do general EDA to gather relevant insights. Due to the different nature of the data, (14 Numerical Columns for the Packets variables and 6 Categorical Data for the Flag variables), we will be breaking it into two parts where we will explore the best method to explore and visualize the different data types for relevant insights.
 
-  **Downsampling using resample from sklearn**
+  **Down-sampling using resample from sklearn**
 
   This is done to reduce the over density of the data given the volume of the rows within the dataframe. The downsampling operation is performed in two steps. 
   In the first step, the majority and minority classes are separated into two different dataframes. The majority class is then downsampled by randomly selecting a subset of the samples without replacement to match the number of samples in the minority class. 
@@ -137,7 +137,7 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
 
   The resulting PCA score represents the proportion of the total variance in the data that is explained by the two PC. In this case, since we reduced the dimensionality of the data to 2 dimensions, the score represents the sum of the explained variance ratios of the two PC. The score ranges from 0 to 1, where 1 indicates that all of the variance in the original data is explained by the principal components. A score of 0 indicates that none of the variance is explained by the principal components. In general, a higher score indicates that the PC are able to capture more of the variance in the original data.
 
-  In this case, the PCA score of around 0.4 ~ 0.6 suggests that the two principal components are able to capture about 40% ~ 60% of the variance in the original data. This means that the two PC may not be able to fully capture the patterns in the data, and there may be additional dimensions that are important for explaining the variance in the data.
+  For instance, a PCA score of around 0.4 ~ 0.6 suggests that the two principal components are able to capture about 40% ~ 60% of the variance in the original data. This means that the two PC may not be able to fully capture the patterns in the data, and there may be additional dimensions that are important for explaining the variance in the data.
   
   At this stage we can select carefully the higher PCA score which indicates that the PC are able to capture more of the variance in the original data. Up till this point for each type of Malware attack, we have decided to either use PCA for a General Reduction in dimension without and preliminary selecting of specific feature types as well as segmenting it into Forward Packets, Backward Packets and Flow.
 
@@ -169,37 +169,54 @@ The same NMF Score for all 3 types of Malware attack proves the key insight foun
 
 # 5. [Core Analysis - Machine Learning](../SC1015-mini-project/)
   
-  Machine Learning techniques are being used as a quick and efficient means of malware detection. 
+  Machine Learning techniques are being used as a quick and efficient means of malware detection. Moving on, we will be applying random forest as our classification model to all the data frames prepared. Our rationale for the chosen model is because of its capability to handle high-dimensional data, as well as our categorical and continuous (numerical) variables. Moreover, it is less prone to overfitting compared to other decision tree-based algorithms. The issue arises when adjusting the class ratio (more samples in the minority class may cause the model to memorise instead of learning generalisable patterns). Our solution is to use cross-validation to counteract this instance of overfitting- increasing the number of folds splits the data into more subsets, allowing the model to be trained and tested on more variations. While this means that the accuracy score obtained from cross-validation can be more reliable, it can also be more computationally expensive to perform.
 
-**1. Supervised:**
+**5.1 Functions for Resampling and Random Forest Sampling**
 
-* After dimension reduction, how can we best evaluate the data? Classification algorithm is used to predict the class labels of new instances based on the reduced data. To do this, split the reduced data into training and test sets, fit a classification model to the training data, and then use the model to predict the class labels of the test data.
-* Random Forests is an ensemble learning method that constructs multiple decision trees and combines their predictions to classify new data. It can be used to classify new malware samples based on the attributes that are most informative for distinguishing between different clusters.
-How model 1 solves objective (numerical):
+Here are the 3 functions we used:
 
-**2. Unsupervised:**
+1. def resample_majority (df_minority, df_majority, ratio)
+_a function for resampling the majority class in an imbalanced dataset to balance it with the minority class._
 
-_clustering-based techniques_
-A hierarchical logistic regression model is proposed for studying data with group structure and a binary response variable.
-How model 2 solves objective (categorical):
+2. 
+def plot_tree_feature (df, name, n)
+_trains a random forest classifier on a given dataframe, and plots the top n feature importances for the model. _
 
-1. Model 1 (categorical): Logistic regression
-Explore both uni variate, multi variate 
+3. def plot_tree (df, name) 
+_trains a random forest classifier on a given dataframe, and prints out accuracy scores on both the training and testing sets_
+It used as a classification model for dimensionally-reduced (using PCA) dataframes as we are unable to differentiate the resulting components from the dimension reduction process.
 
-2. Model 2 (numerical): Random forest
+**4.2 Model Classification(RandomForestClassifier) on PCA Dimension reduced Numerical DataFrames**
 
+For this section, we are able to utilise these functions to deduce the best ratio in terms of efficiency for reducing computational power required whilst maintaining the accuracy due to the Dimension Reduction process in “Part 3”.
 
+We do acknowledge that the reduction process based on data for “Forward Packets, Backward Packets and Flow” produces relatively the same accuracy for the models across all the different data frames (given the ratio of data distribution).
 
+Thus while dimension reduction can be useful, due to the nature of our dataset, we use it to aid us to find the right ratio for data distribution in terms of efficiency and accuracy. 
 
+We will be utilising the "general reduced control" variables as the set to determine which ratio for the the distribution of [Types of Malware Attacks : Benign] to proceed on for the Numerical Data. This is because the PCA score for n_components = 9 is > 96, which results in 9 principle components instead of the 14 from the default Numerical dataset. This helps us make the machine learning process less computationally expensive, improving efficiency whilst retaining high accuracy.
 
+From this RandomForestClassifier, we deduce that 90:10 ratio of data distribution [Malware Attack: Benign] offers the best prediction accuracy, and we will thus be using this ratio. On this page, we can view the accuracy scores generated for each type of malware, for the respective categories of numerical variables. The volume of "Positive Malware Attacks" will aid us in better predicting the variables that correlates to each type of positive malware attack.
 
+**4.3 Model Classification(RandomForestClassifier) on Numerical DataFrames**
 
+Based on the information provided, we can conclude that the Random Forest Classifier model was able to accurately predict the presence of malware with an accuracy score of around 90%. The order of feature importance suggests that these variables in red and orange on this slide are the most important numerical features for predicting the presence of malware. These insights allow us to create efficient methods for identifying and thwarting malware assaults.
+
+For instance, security experts can concentrate on keeping an eye on the network traffic and data Flow Data in Android smartphones to spot suspicious behaviour connected to these crucial elements. To increase the accuracy of malware detection on Android devices, they can also create machine learning models like this basic model we created in predicting which variable. 
+
+**4.4 Model Classification(RandomForestClassifier) on Categorical DataFrames for the Flag Counts**
+
+Comparing across the types of malware, we can see that the count of SYN flags is consistently the most important feature. The order of importance for other flags varies - this is useful in developing effective strategies for detecting different types of Android malware. For example, security professionals can focus on monitoring the network traffic for the count of SYN flags to detect potential Adware, Scareware, and SMS malware attacks.
 
 
 
 # 6. [Conclusion](../SC1015-mini-project/)
-<!-- What is the OUTCOME of your project? Did it solve your original problem? Anything interesting?
-  What are your data-driven INSIGHTS and recommendations / views towards the target problem?
-  Future improvements: Using ensemble learning the performance/accuracy of the classification models can be enhanced. The different ensemble learning techniques are bagging, boosting, and voting. -->
 
+Based on the analysis of numerical data and categorical data, we are able to achieve an accuracy of >90% in predicting the variables as indicators for the various types of malware attacks. We can now answer the original question: What are the variables that help to predict the types of malware attack that happened on an Android device? Overall we can conclude that:
+
+From the numerical data, we can realise which are the important features for predicting the presence of malware, regardless of the type of malware. 
+
+Coupled with the insights from the categorical data, we can see that the order of importance for these flags varies, which can help predict which type of Malware Attack has occurred on the Android Device.
+
+Leveraging on these findings, they may aid us if we were to now set out to create a machine learning model for Android device malware prediction, allowing for more precise and efficient mitigation of Android Malware Attacks.
 
