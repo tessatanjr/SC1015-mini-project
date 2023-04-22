@@ -178,8 +178,7 @@ Here are the 3 functions we used:
 1. def resample_majority (df_minority, df_majority, ratio)
 _a function for resampling the majority class in an imbalanced dataset to balance it with the minority class._
 
-2. 
-def plot_tree_feature (df, name, n)
+2. def plot_tree_feature (df, name, n)
 _trains a random forest classifier on a given dataframe, and plots the top n feature importances for the model. _
 
 3. def plot_tree (df, name) 
