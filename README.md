@@ -65,7 +65,9 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
 
   **2. Splitting the dataset in the different type of possible malware data**
   
-  For the purpose of our analysis, we split our dataset depending on the type of malware attacks for exploratory analysis: 4 DataFrames containing variables relating to: Android_Adware attacks, Android_Scareware attacks, Android_SMS_Malware attacks, with Benign attacks as control. Further data cleaning and preparation are done separately for all dataFrames.
+  For the purpose of our analysis, we split our data into 4 frames depending on the type of malware attacks relating to: Android_Adware attacks, Android_Scareware attacks, Android_SMS_Malware attacks, with Benign attacks. Further data cleaning and preparation was done separately for all data frames including removal of NaN and infinite values. The respective frames containing data relating to malware attacks were then merged with the Benign Attack data frame to act as a control.
+
+  Due to the disproportionate amount of data when comparing the Benign to the other types of Malware Attacks, we will be controlling the volume and ratio of the resulting merged Datasets with random resampling processs which will be utilized for EDA/Machine Learning.
       
   **3. Encoding categorical data (label)**
   
@@ -73,7 +75,7 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
   
   **4. Conversion of final cleaned and prepared dataframes to pickle file**
   
-  The final step of data cleaning is to convert the various data frames that we will be using for EDA and for the machine learning techniques
+  The final step of data cleaning is to convert the various data frames that we will be using for EDA and for the machine learning techniques.
  
  
  
@@ -83,21 +85,32 @@ The database for this project was extracted from Kaggle. It has 355630 Data poin
  
 # 3. [Exploratory Data Analysis and Visualisation: Training the models and Predicting Test Data](../SC1015-mini-project/)
   
-  In this section we will do general EDA to gather relevant insights. Due to the different nature of the data,  (14 Numerical Columns for the Packets variables and 6 Categorical Data for the Flag variables), we will be breaking it into two parts where we will explore the best method to explore and visualize the different data types for relevant insights.
+  In this section we will do general EDA to gather relevant insights. Due to the different nature of the data, (14 Numerical Columns for the Packets variables and 6 Categorical Data for the Flag variables), we will be breaking it into two parts where we will explore the best method to explore and visualize the different data types for relevant insights.
+
+  **Downsampling using resample from sklearn**
+
+  This is done to reduce the over density of the data given the volume of the rows within the dataframe. The downsampling operation is performed in two steps. 
+  In the first step, the majority and minority classes are separated into two different dataframes. The majority class is then downsampled by randomly selecting a subset of the samples without replacement to match the number of samples in the minority class. 
+  In the second step, the balanced data set obtained from the first step is further downsampled. Both the majority and minority classes are divided into two different dataframes and downsampled independently.
+  Finally, the downsampled majority and minority classes are concatenated to obtain the final balanced dataset. The resulting dataset has an equal number of samples for each class.
+
+  The resample process reduced the sheer volume in terms of row for the different DataFrames that will be visualized in the EDA process below in order to help with better visual clarity for method chosen.
 
   **3.1.1 Exploratory Data Analysis (Numerical)**
   
-  In this case, we have chosen boxplots and stripplots to best showcase our results for general distribution, but a simple .describe() function is also utilised to showcase the difference in (Numerical) variables for the types of attack.
+  In this case, we have chosen boxplots and stripplots to best showcase our results for general distribution to best visualize the downsampled data.
+
+  The .describe() function is also utilized on the raw data is to showcase the different (Numerical) variables for the types of Malware Attacks vs Benign.
       
   **3.1.2 Insights of Exploratory Data Analysis (Numerical)**
   
-  To preface we must acknowledge that using graphical representation for such a large volume of (Numerical) data against (Categorical) has its downsides:
+  To preface we must acknowledge that using graphical representation for such a large volume of (Numerical) data against (Categorical) has its downsides of poor visual clarity even after downscaling of the rows within the DataFrames has been done:
   
-  * As shown in the boxplot and stripplot, there are many outliers in the values, however the value that standout the most visually would be the ['Total Length of Fwd Packet'] for both the Scareware and SMS Malware: Where the outliers have a large spread which is also reflected in their std value.
-  * The mean value of ['Total Length of Fwd Packets'] for Android_Malware attack: 5.39 which is much lower than the respective factor for the negative/Benign attacks: 623.59 which will also be further explored in the machine learning model stage.
+  * As shown in the boxplot and stripplot, there are many outliers in the values, however the value that standout the most visually would be the ['Bwd Packet Length max'] for SMS Malware: Where the outliers have a large spread which is also reflected in their std value.
+  * Significant observation difference of around 40% to 30% from the (mean) value result of .compare() function on the .describe() results of the raw Numerical Dataframes for the types of Malware Attacks vs Benign
   * Though the boxplots visually show a large amount of outliers reflected throughout all the (Numerical) data, we will not remove them as they are important for anomaly detection. 
      
-  These insights will be further developed into a potential hypothesis/insights in the prediction accuracy when doing machine learning model stage.
+  These insights will be further developed into a potential hypothesis/insights in the prediction accuracy when doing machine learning model stage. Such as the feature importance rankings, we can take a look back at the Significant observation difference later on in Part 4: Machine Learning
 
   **3.2.1 Exploratory Data Analysis (Categorical)**
   
