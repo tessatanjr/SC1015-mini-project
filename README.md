@@ -220,3 +220,15 @@ Coupled with the insights from the categorical data, we can see that the order o
 
 Leveraging on these findings, they may aid us if we were to now set out to create a machine learning model for Android device malware prediction, allowing for more precise and efficient mitigation of Android Malware Attacks.
 
+
+
+# 7. References
+1.https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html
+2.https://scikit-learn.org/stable/modules/generated/sklearn.utils.validation.column_or_1d.html
+3.https://scikit-learn.org/stable/modules/generated/sklearn.utils.resample.html
+4.https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html
+5.https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html
+6.https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html
+7.https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+8.https://github.com/ardnep/ntu-sc1015-mini-project
+9.(ChatGPT, 2023)
