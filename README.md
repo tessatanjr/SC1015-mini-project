@@ -3,7 +3,7 @@
 School of Computer Science and Engineering
 Nanyang Technological University
 Lab: z137
-Group: 2
+Team: 2
 
 Members:
 1. Glenda Yap Kah Heng (@glendaykh)
