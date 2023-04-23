@@ -2,7 +2,7 @@
 
 School of Computer Science and Engineering
 Nanyang Technological University
-Lab: z137
+Lab: Z137
 Team: 2
 
 Members:
